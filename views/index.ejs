@@ -1,0 +1,186 @@
+<%- include('./inc/header.ejs') %>
+<div class="row">
+    <div class="row col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-auto pt-4">
+            <div class="card boderCard">
+                <div class="row card-body">
+                    <div class="col-4">
+                        <i class="bi bi-people" style="font-size: 4.5rem; color: #ea5120;"></i>
+                    </div>
+                    <div class="col-8">
+                        <h4>Khách hàng</h4>
+                        <p><b>
+                            <%= %> khách hàng
+                            </b></p>
+                        <p class="">Tổng khách hàng được quản lý.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 pt-4">
+            <div class="card boderCard">
+                <div class="row card-body">
+                    <div class="col-4">
+                        <i class="bi bi-inboxes" style="font-size: 4.5rem; color: #ea5120;"></i>
+                    </div>
+                    <div class="col-8">
+                        <h4>Sản phẩm</h4>
+                        <p><b>
+                            <%= %> sản phẩm
+                            </b></p>
+                        <p class="info-tong">Tổng sản phẩm được quản lý.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 pt-4">
+            <div class="card boderCard">
+                <div class="row card-body">
+                    <div class="col-4">
+                        <i class="bi bi-diagram-3" style="font-size: 4.5rem; color: #ea5120;"></i>
+                    </div>
+                    <div class="col-8">
+                        <h4>Thể loại</h4>
+                        <p><b>
+                               <%= %> thể loại
+                            </b></p>
+                        <p class="info-tong">Tổng thể loại được quản lý. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 pt-4">
+            <div class="card boderCard">
+                <div class="row card-body">
+                    <div class="col-4">
+                        <i class="bi bi-person-gear" style="font-size: 4.5rem; color: #ea5120;"></i>
+                    </div>
+                    <div class="col-8">
+                        <h4>Nhân viên</h4>
+                        <p><b>
+                            <%= %> nhân viên
+                            </b></p>
+                        <p class="info-tong">Tổng nhân viên được quản lý. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 pt-4 ps-md-5">
+        <main role="main" class="col-md-12 card boderCard pt-3">
+          <div class=" text-center">
+            <h1 class="h2" style="color: #ea5120;">Doanh số 2023</h1>
+          </div>
+          <canvas class="my-4 w-100" id="myChart" width="900" height="370"></canvas>
+        </main>
+    </div>
+    <div class="col-md-6 col-sm-12 pt-4">
+        <!-- Main content -->
+        <main role="main" class="col-md-12 card boderCard pt-3">
+            <div class="text-center">
+              <h1 class="h2" style="color: #ea5120;">Doanh số quý 1</h1>
+            </div>
+            <canvas class="my-4 w-100" id="myChartQuy1" width="900" height="370"></canvas>
+          </main>
+    </div>
+    <div class="col-md-6 col-sm-12 pt-4">
+        <!-- Main content -->
+        <main role="main" class="col-md-12 card boderCard pt-3">
+            <div class="text-center">
+              <h1 class="h2" style="color: #ea5120;">Doanh số quý 2</h1>
+            </div>
+            <canvas class="my-4 w-100" id="myChartQuy2" width="900" height="370"></canvas>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script>
+  var ctx = document.getElementById('myChart')
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4', 'Thang 5', 'Thang 6', 'Thang 7', 'Thang 8','Thang 9','Thang 10','Thang 11','Thang 12'],
+      datasets: [{
+        data: [15339, 21345, 18483, 24003, 23489, 24092 ],
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#ea5120',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: false
+          }
+        }]
+      },
+      legend: {
+        display: false,
+      }
+    }
+  })
+</script>
+<script>
+    var ctx = document.getElementById('myChartQuy1')
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Thang 1', 'Thang 2', 'Thang 3'],
+        datasets: [{
+          data: [15339, 21345, 18483,],
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: '#ea5120',
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        },
+        legend: {
+          display: false,
+        }
+      }
+    })
+</script>
+<script>
+    var ctx = document.getElementById('myChartQuy2')
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Thang 4', 'Thang 5', 'Thang 6'],
+        datasets: [{
+          data: [ 24003, 23489, 24092, ],
+          lineTension: 0,
+          backgroundColor: 'transparent',
+          borderColor: '#ea5120',
+          borderWidth: 4,
+          pointBackgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        },
+        legend: {
+          display: false,
+        }
+      }
+    })
+</script>
+
+<%- include('./inc/footer.ejs') %>

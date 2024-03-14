@@ -1,0 +1,87 @@
+<% var acHome='' ; var acComic='' ; var acUser='' ; var acChangeInfo='' ; var accChangePass='' ; if
+    (typeof(title)=='undefined' ) { title='' ; } if(title !='' ){ if(title=="Trang chủ" ){ acHome='active' ; }else
+    if(title=="Danh sách truyện" || title=="Thêm truyện tranh" || title=="Chi tiết truyện"){ acComic='active' ; }else if(title=="Danh sách khách hàng" || title=="Thêm User" ){
+    acUser='active' ; }else if(title=="Đổi thông tin" ){ acChangeInfo='active' ; }else if(title=='Đổi mật khẩu' ){
+    accChangePass='active' ; } } %>
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>
+            <%= title %> | ReadMiu Manage
+        </title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- cho ảnh vào đây là có icon trang web -->
+        <link rel="icon" type="image/x-icon" href="/images/logo-shopee.png">
+        <!-- đường dẫn style và javascripts -->
+        <link rel="stylesheet" href="/icon/bootstrap-icons-1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/main_menu.css">
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+        <script src="/javascripts/main_menu.js"></script>
+        <script src="/javascripts/jquery-3.2.1.min.js"></script>
+        <script src="/javascripts/js/bootstrap.bundle.js"></script>
+    </head>
+
+    <body onload="time()" class="app sidebar-mini rtl">
+        <div class="app-header">
+            <!-- quản lý menu -->
+            <a class="app-sidebar__toggle" data-toggle="sidebar" href="/" aria-label="Hide Sidebar"
+                style="margin-top: 10px;"></a>
+
+            <ul class="app-nav">
+                <li>
+                    <a class="app-nav__item" href="/">
+                        <i class='bx bx-log-out'
+                            style="font-size: 1.5rem; font-weight: bold; transform: rotate(180deg);"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+        <div class="app-sidebar">
+            <h1 style="color: aqua; text-align: center; margin-bottom: 20px;">ReadMiu</h1>
+            <hr class="hrmenu">
+            <!-- đây là menu dọc đó -->
+            <ul class="app-menu">
+                <li><a class="app-menu__item <%- acHome %> " href="/">
+                        <i class="bi bi-house-fill app-menu__icon"></i>
+                        <span class="app-menu__label">Home</span>
+                    </a>
+                </li>
+                <li><a class="app-menu__item <%- acUser %> " href="/user">
+                        <i class="bi bi-person-circle app-menu__icon"></i>
+                        <span class="app-menu__label">Người dùng</span>
+                    </a>
+                </li>
+                <li><a class="app-menu__item <%- acComic %> " href="/comic">
+                        <i class='app-menu__icon bi bi-journal-bookmark-fill'></i>
+                        <span class="app-menu__label"> Truyện </span>
+                    </a>
+                </li>
+                <li><a class="app-menu__item <%- acChangeInfo %> " href="/change-info">
+                        <i class='app-menu__icon bi bi-person-fill-gear'></i>
+                        <span class="app-menu__label">Đổi thông tin</span>
+                    </a>
+                </li>
+                <li><a class="app-menu__item <%- accChangePass %> " href="/change-pass">
+                        <i class='app-menu__icon bi bi-person-fill-lock'></i>
+                        <span class="app-menu__label">Đổi mật khẩu</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="app-content">
+            <div class="card app-title">
+                <ul class="app-breadcrumb breadcrumb">
+                    <b style="font-size: 18px;">
+                        <%= title %>
+                    </b>
+                </ul>
+                <div id="clock" style="font-size: 16px; font-weight: bold;"></div>
+            </div>

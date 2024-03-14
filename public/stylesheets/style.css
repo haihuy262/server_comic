@@ -1,0 +1,105 @@
+
+
+.boderBtn {
+    border-color: #ea5120;
+    border-width: 2px;
+}
+
+.boderAddfile {
+    border-color: #ea5120;
+    border-width: 1px;
+}
+
+.boderCard {
+    border-color: #ea5120;
+    border-width: 2px;
+}
+
+/* btn  */
+.btnCustom {
+    transition-duration: 0.4s;
+    width: 120px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: white;
+    border-color: #ea5120;
+    color: #ea5120;
+    font-weight: 500;
+}
+
+.btnCustom:hover {
+    background-color: #ea5120;
+    color: white;
+}
+
+/* btn tbale*/
+.btnTable {
+    width: 48px; 
+    height: 48px;
+    transition-duration: 0.4s;
+    border-radius: 10px;
+    color: #ea5120;
+    border-color: #ea5120;
+}
+
+.btnTable:hover {
+    background-color: #ea5120;
+    color: white;
+}
+
+.btnBlock {
+    width: 48px; 
+    height: 48px;
+    transition-duration: 0.4s;
+    border-radius: 10px;
+    color: white;
+    border-color: white;
+    background-color: #ea5120;
+}
+
+.btnBlock:hover {
+    background-color: white;
+    color: #ea5120;
+}
+
+.formtext {
+    color: black;
+    font-weight: 500;
+    margin-left: 5px;
+    margin-top: 15px;
+}
+
+.img-detail {
+    margin-top: 13px;
+    margin-right: 13px;
+    margin-bottom: 13px;
+    border-radius: 10px;
+    max-width: 500px;   
+    max-height: 500px;
+}
+
+.titleCustom {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: -10px;
+    margin-top: 20px;
+}
+
+.hrCustom {
+    color: black;
+    border-width: 2px;
+}
+/* Table */
+.borderTable {
+    border-color: black;
+}
+
+.bg-thead {
+    background-color: #ea5120;
+}
+
+.comment {
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

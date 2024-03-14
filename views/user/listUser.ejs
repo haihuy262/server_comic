@@ -1,0 +1,176 @@
+<%- include('../inc/header.ejs') %>
+<script>
+    function sapXepTheoTen() {
+        name = document.getElementById("nameSort").value;
+        window.location = '/user/sort-name/' + name;
+    }
+</script>
+<div class="card">
+    <div class="row ms-1 mt-3">
+        <div class="col-md-6 col-sm-12 row ps-4">
+            <div class="col-md-3 pt-2">
+                <a href="/user/add">
+                    <button type="button" class="btnCustom" style="width: 120px;">Thêm</button>
+                </a>
+            </div>
+            <div class="col-md-3 pt-2 ">
+                <select id="nameSort" onchange="sapXepTheoTen()" class="form-select boderBtn pe-md-4" style="width: 120px;">
+                    <% let none='' ; let S1='' ; let S2='' ; 
+                    if(sortName =='1' ){ 
+                        S1=' selected ' ; 
+                    }else if(sortName =='-1' ){ 
+                        S2=' selected ' ; 
+                    }else{ 
+                        none=' selected ' ; 
+                    } %>
+                        <option <%=none %> value="0">Sắp xếp tên</option>
+                        <option <%=S2 %> value="1">A đến Z</option>
+                        <option <%=S1 %> value="-1">Z đến A</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+            <nav class="navbar">
+                <div class="container-fluid ms-3">
+                    <form class="d-flex" role="search" action="/user/search/">
+                        <input class="form-control me-2 boderBtn" type="search" placeholder="Search theo tên"
+                            aria-label="Search" style="width: 240px;" name="fullname" value="<%= name %>">
+                        <button class="btnCustom" type="submit" style="width: 120px;">Tìm kiếm</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr class="ms-3 me-3">
+    <div class="ms-4 mt-2 me-4">
+        <!-- Bảng -->
+        <table class="table table-bordered table-hover">
+            <thead class="borderTable bg-thead">
+                <tr>
+                    <th scope="col" class="col-1 text-center">STT</th>
+                    <th scope="col" class="col-1 text-center">Avata</th>
+                    <th scope="col" class="col-2 text-center">Họ và Tên</th>
+                    <th scope="col" class="col-2 d-none d-sm-table-cell text-center">Số điện thoại</th>
+                    <th scope="col" class="col-2 d-none d-md-table-cell text-center">Email</th>
+                    <th scope="col" class="col-1 text-center">Chặn user</th>
+                </tr>
+            </thead>
+            <tbody class="borderTable">
+                <% for(let i=0;i < listUser.length ; i++){ %>
+                    <tr>
+                        <th scope="row" class="text-center">
+                            <%= i + 1 %>
+                        </th>
+                        <td class="text-center"><img src="<%= listUser[i].avata %>" alt="" width="60px" height="80px">
+                        </td>
+                        <td class="text-center">
+                            <%= listUser[i].fullname %>
+                        </td>
+                        <td class="text-center d-none d-sm-table-cell">
+                            <%= listUser[i].phone %>
+                        </td>
+    
+                        <td class="text-center d-none d-md-table-cell">
+                            <%= listUser[i].email %>
+                        </td>
+                        <!-- Chức năng khóa user -->
+                        <% if(listUser[i].acc_status){ %>
+                            <td class="text-center">
+                                <button type="button" class="btnTable" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-person-fill" style="font-size: 2rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Chặn người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>Người dùng sẽ không thể đăng nhập được nữa.</span>
+                                                <span>Bạn có chắc muốn chặn người dùng này ?</span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <a class="btn btn-primary" href="/user/block-user/<%= listUser[i]._id%>">Chặn</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% }else{ %>
+                            <td class="text-center">
+                                <button type="button" class="btnBlock" data-bs-toggle="modal"
+                                    data-bs-target="#lockUser<%= listUser[i]._id%>" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-person-fill-slash" style="font-size: 2rem;"></i>
+                                </button>
+        
+                                <div class="modal fade" id="lockUser<%= listUser[i]._id%>" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mở chặn người dùng</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>Người dùng sẽ có lại quyền truy cập.</span>
+                                                <span>Bạn có chắc muốn mở chặn người dùng này ?</span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <a class="btn btn-primary" href="/user/unblock-user/<%=listUser[i]._id%>">Mở Chặn</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        <% } %>
+                        
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <div >
+            <span><%= msg %></span>
+        </div>
+        <!-- Chia  -->
+        <% let countV=1 %>
+        <div class="row">
+            <div class="col-6 d-flex justify-content-start">
+                <b style="font-size: 16px;">Số lượng: <%= count %></b>
+            </div>
+            <div class="col-6 d-flex justify-content-end boderBtn">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <% for(let i=0; i < count ; i +=5){ %>
+
+                            <li class="page-item"><a class="page-link" href="/user?Index=<%= i %>">
+                                    <%= countV %>
+                                </a></li>
+                            <% countV++; } %>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../inc/footer.ejs') %>

@@ -1,0 +1,237 @@
+<%- include('../inc/header.ejs') %>
+<script>
+    function sapXepTheoTenTacGia() {
+        name = document.getElementById("nameWSort").value;
+        window.location = '/comic/sort-name-write/' + name;
+    }
+    function sapXepTheoNamXuatBan() {
+        year = document.getElementById("yearSort").value;
+        window.location = '/comic/sort-year/' + year;
+    }
+</script>
+<div class="card">
+    <div class="row ms-1 mt-3">
+        <div class="col-md-6 col-sm-12 row ps-3">
+            <div class="col-md-3 pt-2">
+                <a href="/comic/add">
+                    <button type="button" class="btnCustom" style="width: 120px;">Thêm</button>
+                </a>
+            </div>
+            <div class="col-md-3 pt-2 ">
+                <select id="nameWSort" onchange="sapXepTheoTenTacGia()" class="form-select boderBtn pe-md-4" style="width: 120px;">
+                    <% let noneN='' ; let S1N='' ; let S2N='' ; 
+                    if(sortNameWrite =='1' ){ 
+                        S1N=' selected ' ; 
+                    }else if(sortNameWrite =='-1' ){ 
+                        S2N=' selected ' ; 
+                    }else{ 
+                        noneN=' selected ' ; 
+                    } %>
+                        <option <%=noneN %> value="0">Sắp xếp tên</option>
+                        <option <%=S1N %> value="1">A đến Z</option>
+                        <option <%=S2N %> value="-1">Z đến A</option>
+                </select>
+            </div>
+            <div class="col-md-3 pt-2 ">
+                <select id="yearSort" onchange="sapXepTheoNamXuatBan()" class="form-select boderBtn pe-md-4" style="width: 120px;">
+                    <% let noneY='' ; let S1Y='' ; let S2Y='' ; 
+                    if(sortYear =='1' ){ 
+                        S1Y=' selected ' ; 
+                    }else if(sortYear =='-1' ){ 
+                        S2Y=' selected ' ; 
+                    }else{ 
+                        noneY=' selected ' ; 
+                    } %>
+                        <option <%=noneY %> value="0">Sắp xếp năm</option>
+                        <option <%=S1Y %> value="1">Lớn đến nhỏ</option>
+                        <option <%=S2Y %> value="-1">Nhỏ đến lớn</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+            <nav class="navbar">
+                <div class="container-fluid ms-3">
+                    <form class="d-flex" role="search" action="/comic/search">
+                        <input class="form-control me-2 boderBtn" type="search" placeholder="Search theo tên"
+                            aria-label="Search" style="width: 240px;" name="name" value="<%= name %>">
+                        <button class="btnCustom" type="submit" style="width: 120px;">Tìm kiếm</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <hr class="ms-3 me-3">
+    <div class="ms-4 mt-2 me-4">
+        <!-- Bảng -->
+    <table class="table table-bordered table-hover">
+        <thead class="borderTable bg-thead">
+            <tr>
+                <th scope="col" class="col-1 text-center">STT</th>
+                <th scope="col" class="col-1 text-center">Ảnh bìa</th>
+                <th scope="col" class="col-2 text-center">Tên truyện</th>
+                <th scope="col" class="col-1 text-center">PDF truyện</th>
+                <th scope="col" class="col-1 text-center">Tên tác giả</th>
+                <th scope="col" class="col-1 text-center">Năm xuất bản</th>
+                <th scope="col" class="col-3 d-none d-sm-table-cell text-center">Mô tả truyện</th>
+                <th scope="col" class="col-2 text-center">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody class="borderTable">
+            <% for(let i = 0; i < listComic.length ; i++){ %>
+                <tr>
+                    <th scope="row" class="text-center">
+                        <%= i + 1 %>
+                    </th>
+                    <td class="text-center"><img src="<%= listComic[i].image %>" alt=""
+                            width="60px" height="60px" style="border-radius: 10px;">
+                    </td>
+                    <td class="text-center">
+                        <a href="/comic/detail/<%= listComic[i]._id %>" style="text-decoration: none; color: black;">
+                            <%= listComic[i].name %>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="<%= listComic[i].pdf %>" target="_blank">Xem PDF</a>
+                     </td>
+                    <th class="text-center" style="font-weight: 400;">
+                        <%= listComic[i].writer_name %>
+                    </th>
+                    <th class="text-center" style="font-weight: 400;">
+                        <%= listComic[i].publishing_year %>
+                    </th>
+                    <th class="text-center d-none d-sm-table-cell" style="font-weight: 400;">
+                        <%= listComic[i].story_desc %>
+                    </th>
+                    <th class="text-center">
+                        <!-- Sửa -->
+                        <button type="button" class="btnTable me-md-4 mt-1" data-bs-toggle="modal"
+                            data-bs-target="#suaSPModal<%= listComic[i]._id %>">
+                            <i class="bi bi-pencil-square " style="font-size: 2rem;"></i>
+                        </button>
+                        <div class="modal fade" id="suaSPModal<%= listComic[i]._id %>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-5 pt-4">
+                                                    <img id="previewImg" src="<%= listComic[i].cover_img %>"
+                                                        alt="Preview image" width="180px" height="180px"
+                                                        style="border-radius: 10px;">
+                                                    <input name="upload-comic" type="file" class="form-control boderBtn mt-2">
+                                                </div>
+                                                <div class="col-7">
+                                                    <input type="hidden" name="idProduct"
+                                                        value="<%= listComic[i]._id %>">
+                                                    <div class="form-floating mb-4">
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1"
+                                                                class="form-label d-flex" style="color: #ea5120;"><b>Tên truyện</b></label>
+                                                            <input value="<%= listComic[i].name %>" name="name"
+                                                                type="text" class="form-control boderBtn"
+                                                                id="exampleFormControlInput1" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1"
+                                                                class="form-label d-flex" style="color: #ea5120;"><b>Tên tác giả</b></label>
+                                                            <input value="<%= listComic[i].writer_name %>" name="writer_name"
+                                                                type="text" class="form-control boderBtn"
+                                                                id="exampleFormControlInput1" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1"
+                                                                class="form-label d-flex" style="color: #ea5120;"><b>Năm xuất bản</b></label>
+                                                            <input value="<%= listComic[i].publishing_year %>" name="publishing_year"
+                                                                type="text" class="form-control boderBtn"
+                                                                id="exampleFormControlInput1" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlTextarea1"
+                                                                class="form-label d-flex " style="color: #ea5120;"><b>Mô tả truyện</b></label>
+                                                            <textarea class="form-control boderBtn"
+                                                                id="exampleFormControlTextarea1" name="story_desc"
+                                                                rows="3"><%= listComic[i].story_desc %></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                        <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Xóa -->
+                        <button type="button" class="btnTable mt-1" data-bs-toggle="modal"
+                            data-bs-target="#xoaSP<%= listComic[i]._id%>">
+                            <i class="bi bi-trash-fill" style="font-size: 2rem;"></i>
+                        </button>
+                        <div class="modal fade" id="xoaSP<%= listComic[i]._id%>" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Bạn có chắc muốn xóa sản phẩm này ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                        <a class="btn btn-primary" href="/comic/delete/<%= listComic[i]._id%>">Xóa</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+    <!-- Chia  -->
+    <% let countV=1 %>
+        <div class="row">
+            <div class="col-6 d-flex justify-content-start">
+                <b style="font-size: 16px;">Số lượng: <%= count %></b>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <% for(let i=0; i < count ; i += 5){ %>
+
+                            <li class="page-item"><a class="page-link" href="/comic?Index=<%= i %>">
+                                    <%= countV %>
+                                </a></li>
+                            <% countV++; } %>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+<%- include('../inc/footer.ejs') %>
