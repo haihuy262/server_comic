@@ -1,54 +1,41 @@
 <%- include('../inc/header.ejs') %>
-    <div class="card m-2">
-        <div class="row">
-            <div class=" col-md-8 col-sm-12 card boderBtn">
-                <div class="row">
-                    <div class="col-md-7 col-sm-12">
-                        <img class="img-detail" src="<%= data.cover_img %>" alt="" width="450px" height="450px">
-                    </div>
-                    <div class="col-md-5 col-sm-12">
-                        <h4 class="pt-3">Tên chuyện: <%= data.name %>
-                        </h4>
-                        <hr class="pe-3" style="border-width: 3px;">
-                        <p class=""><b>Tên tác giả: </b>
-                            <%= data.writer_name %>
-                        </p>
-                        <p class=""><b>Năm xuất bản: </b>
-                            <%= data.publishing_year %>
-                        </p>
-                        <p class=""><b>Số lượng ảnh chuyện: </b>
-                            <%= data.list_photo.length %>
-                        </p>
-                        <hr style="margin-top: -5px; border-width: 3px;">
-                        <p class=""><b>Mô tả chuyện:</b>
-                            <%= data.story_desc %>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-12 card boderBtn">
-                <div class="row m-3">
-                    <h4 class="col-7">Bình luận</h4> 
-                    <h5 class="col-5">Số lượng: <%= listCmt.length %></h5>
-                </div>
-                <hr class="ms-3 me-3" style="margin-top: -10px; border-width: 3px;">
-                <div class="comment">
-                    <% for (let i=0; i < listCmt.length; i++) {  %>
-                        <div class="card ms-3 me-3 mt-2 boderBtn">
-                            <div class="row" style="padding: 10px; margin-bottom: -10px;">
-                                <div class="col-2">
-                                    <img src="<%= listCmt[i].id_user.avata %>" alt="" style="border-radius: 100px; width: 48px; height: 48px;">
-                                </div>
-                                <div class="col-10">
-                                    <b><%= listCmt[i].id_user.fullname %></b>
-                                    <p><%= listCmt[i].cmt_content %></p>
-                                </div>
-                            </div>
-                        </div>
-                    <% } %>
-            </div>
+<div class="card m-2">
+  <div class="row">
+    <div class="col-md-8 col-sm-12 card boderBtn">
+      <div class="row">
+        <div class="col-md-7 col-sm-12">
+          <img
+            class="img-detail"
+            src="<%= comic.image %>"
+            alt=""
+            width="450px"
+            height="450px"
+          />
         </div>
+        <div class="col-md-5 col-sm-12">
+          <h4 class="pt-3">Tên truyện: <%= comic.name %></h4>
+          <hr class="pe-3" style="border-width: 3px" />
+          <p class="">
+            <b>Tên tác giả: </b>
+            <%= comic.writer_name %>
+          </p>
+          <p class="">
+            <b>Năm xuất bản: </b>
+            <%= comic.publishing_year %>
+          </p>
+          <p class="">
+            <b>File Truyện: </b>
+            <a href="<%= comic.pdf %>" target="_blank">Click để đọc!</a>
+          </p>
+          <hr style="margin-top: -5px; border-width: 3px" />
+          <p class="">
+            <b>Mô tả chuyện:</b>
+            <%= comic.story_desc %>.
+          </p>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
+</div>
 
-    <%- include('../inc/footer.ejs') %>
+<%- include('../inc/footer.ejs') %>

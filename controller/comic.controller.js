@@ -42,19 +42,20 @@ exports.listComic = async (req, res, next) => {
 };
 
 exports.detailComic = async (req, res, next) => {
-  let title = "Chi tiết truyện";
-  let msg = "";
-  let Comic = await myDB.comicModel.findById(req.params.id);
-  let listCmt = await myDB.commentModel
-    .find({ id_comic: req.params.id })
-    .populate("id_user");
-
-  res.render("comic/detailComic", {
-    title: title,
-    msg: msg,
-    data: Comic,
-    listCmt: listCmt,
-  });
+  try {
+    let id = req.params.id;
+    let comic = await myDB.comicModel.findById(id);
+    if (!comic) {
+      // Nếu không tìm thấy comic, hiển thị lỗi 404
+      return res.status(404).send("Comic not found");
+    }
+    // Hiển thị trang chi tiết comic với thông tin của comic
+    res.render("comic/detailComic", { comic });
+  } catch (error) {
+    // Xử lý lỗi nếu có
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 exports.addComic = async (req, res, next) => {

@@ -121,7 +121,7 @@
                                         <form action="" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-5 pt-4">
-                                                    <img id="previewImg" src="<%= listComic[i].cover_img %>"
+                                                    <img id="previewImg" src="<%= listComic[i].image %>"
                                                         alt="Preview image" width="180px" height="180px"
                                                         style="border-radius: 10px;">
                                                     <input name="upload-comic" type="file" class="form-control boderBtn mt-2">
@@ -150,6 +150,14 @@
                                                             <input value="<%= listComic[i].publishing_year %>" name="publishing_year"
                                                                 type="text" class="form-control boderBtn"
                                                                 id="exampleFormControlInput1" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1"
+                                                                class="form-label d-flex" style="color: #ea5120;"><b>PDF truyện</b></label>
+                                                            <input value="<%= listComic[i].pdf %>" name="publishing_year"
+                                                                type="text" class="form-control boderBtn"
+                                                                id="exampleFormControlInput1" required readonly disabled>
+                                                                <input name="pdf" type="file" class="form-control boderBtn mt-2" accept="pdf">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlTextarea1"
