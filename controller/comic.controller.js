@@ -105,8 +105,15 @@ exports.editComic = async (req, res, next) => {
 };
 
 exports.deleteComic = async (req, res, next) => {
-  let title = "Thêm truyện tranh";
-  let msg = "";
+  let id = req.params.id;
+  let obj = await myDB.comicModel.findById(id);
+  obj.acc_status = false;
+  try {
+    await myDB.comicModel.findByIdAndDelete(id, obj);
+    res.redirect("/comic");
+  } catch (error) {
+    console.log(error);
+  }
 
-  res.render("comic/listComic", {});
+  res.render("comic/listComic");
 };
