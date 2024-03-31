@@ -1,0 +1,103 @@
+<%- include('../inc/header.ejs') %>
+<div class="card boderCard">
+  <!-- Thêm sản phẩm -->
+  <span class="ms-4 titleCustom"><%= title %></span>
+  <hr class="me-4 ms-4 hrCustom" />
+  <div class="mt-2 row">
+    <form
+      action="/comic/edit/<%= data._id %> "
+      class="row"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <!-- thêm nhân viên -->
+      <div class="col-12 row ms-2">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label formtext"
+            >Tên truyện</label
+          >
+          <input
+            name="name"
+            type="text"
+            class="form-control boderBtn"
+            id="inputEmail4"
+            placeholder="Nhập tên chuyện"
+            value="<%= data.name %>"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label formtext">Ảnh bìa</label>
+          <div class="input-group rounded-2">
+            <input name="image" type="file" class="form-control boderBtn" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label formtext"
+            >PDF truyện</label
+          >
+          <div class="input-group rounded-2">
+            <input
+              name="pdf"
+              type="file"
+              class="form-control boderBtn"
+              accept="pdf"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="inputAddress" class="form-label formtext"
+            >Tên tác giả</label
+          >
+          <input
+            name="writer_name"
+            type="text"
+            class="form-control boderBtn"
+            id="inputAddress"
+            placeholder="Nhập tên tác giả"
+            value="<%= data.writer_name %>"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="inputAddress" class="form-label formtext"
+            >Năm xuất bản</label
+          >
+          <input
+            name="publishing_year"
+            type="text"
+            class="form-control boderBtn"
+            id="inputAddress"
+            placeholder="Nhập năm xuất bản"
+            value="<%= data.publishing_year %>"
+          />
+        </div>
+        <div class="col-md-12 mt-4">
+          <div class="form-floating">
+            <textarea
+              name="story_desc"
+              class="form-control boderBtn rounded-2"
+              placeholder="Nhập mô tả sản phẩm"
+              id="floatingTextarea2"
+              style="height: 100px"
+            >
+<%= data.story_desc %></textarea
+            >
+            <label class="ms-3" for="floatingTextarea2">Mô tả chuyện</label>
+          </div>
+        </div>
+        <div class="col-md-6 mt-3 mb-5">
+          <a href="/comic"
+            ><Button class="me-2 btnCustom" type="button">Hủy</Button></a
+          >
+          <button type="submit" class="btnCustom">Lưu</button>
+        </div>
+        <div class="col-md-6 mt-4">
+          <p style="color: red; font-style: italic; font-size: 16px">
+            <%= msg %>
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../inc/footer.ejs') %>
