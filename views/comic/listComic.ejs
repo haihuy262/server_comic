@@ -8,6 +8,9 @@
         year = document.getElementById("yearSort").value;
         window.location = '/comic/sort-year/' + year;
     }
+    function editComic(id){
+        window.location.href = "comic/edit/" + id
+    }
 </script>
 <div class="card">
     <div class="row ms-1 mt-3">
@@ -105,80 +108,10 @@
                     <th class="text-center">
                         <!-- Sửa -->
                         <button type="button" class="btnTable me-md-4 mt-1" data-bs-toggle="modal"
-                            data-bs-target="#suaSPModal<%= listComic[i]._id %>">
+                            data-bs-target="#suaSPModal<%= listComic[i]._id %>" onclick="editComic('<%= listComic[i]._id %>')" >
                             <i class="bi bi-pencil-square " style="font-size: 2rem;"></i>
                         </button>
-                        <div class="modal fade" id="suaSPModal<%= listComic[i]._id %>" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa sản phẩm</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" method="POST" enctype="multipart/form-data">
-                                            <div class="row">
-                                                <div class="col-5 pt-4">
-                                                    <img id="previewImg" src="<%= listComic[i].image %>"
-                                                        alt="Preview image" width="180px" height="180px"
-                                                        style="border-radius: 10px;">
-                                                    <input name="upload-comic" type="file" class="form-control boderBtn mt-2">
-                                                </div>
-                                                <div class="col-7">
-                                                    <input type="hidden" name="idProduct"
-                                                        value="<%= listComic[i]._id %>">
-                                                    <div class="form-floating mb-4">
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label d-flex" style="color: #ea5120;"><b>Tên truyện</b></label>
-                                                            <input value="<%= listComic[i].name %>" name="name"
-                                                                type="text" class="form-control boderBtn"
-                                                                id="exampleFormControlInput1" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label d-flex" style="color: #ea5120;"><b>Tên tác giả</b></label>
-                                                            <input value="<%= listComic[i].writer_name %>" name="writer_name"
-                                                                type="text" class="form-control boderBtn"
-                                                                id="exampleFormControlInput1" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label d-flex" style="color: #ea5120;"><b>Năm xuất bản</b></label>
-                                                            <input value="<%= listComic[i].publishing_year %>" name="publishing_year"
-                                                                type="text" class="form-control boderBtn"
-                                                                id="exampleFormControlInput1" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label d-flex" style="color: #ea5120;"><b>PDF truyện</b></label>
-                                                            <input value="<%= listComic[i].pdf %>" name="publishing_year"
-                                                                type="text" class="form-control boderBtn"
-                                                                id="exampleFormControlInput1" required readonly disabled>
-                                                                <input name="pdf" type="file" class="form-control boderBtn mt-2" accept="pdf">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleFormControlTextarea1"
-                                                                class="form-label d-flex " style="color: #ea5120;"><b>Mô tả truyện</b></label>
-                                                            <textarea class="form-control boderBtn"
-                                                                id="exampleFormControlTextarea1" name="story_desc"
-                                                                rows="3"><%= listComic[i].story_desc %></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Hủy</button>
-                                        <button type="submit" class="btn btn-primary">Sửa thông tin</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <!-- Xóa -->
                         <button type="button" class="btnTable mt-1" data-bs-toggle="modal"

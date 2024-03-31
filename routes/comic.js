@@ -48,4 +48,14 @@ router.post(
 router.get("/delete/:id", comciCtrl.deleteComic);
 router.get("/detail/:id", comciCtrl.detailComic);
 
+router.get("/edit/:id", comciCtrl.editComic);
+router.post(
+  "/edit/:id",
+  uploader.fields([
+    { name: "image", maxCount: 1 },
+    { name: "pdf", maxCount: 1 },
+  ]),
+  comciCtrl.putComic
+);
+
 module.exports = router;

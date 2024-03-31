@@ -99,10 +99,73 @@ exports.addComic = async (req, res, next) => {
 };
 
 exports.editComic = async (req, res, next) => {
-  let title = "Thêm truyện tranh";
+  let title = "Sửa thông tin truyện";
   let msg = "";
 
-  res.render("comic/listComic", {});
+  try {
+    let id = req.params.id;
+    let comic = await myDB.comicModel.findOne({ _id: id });
+    res.render("comic/editComic", {
+      data: comic,
+      title: title,
+      msg: msg,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+exports.putComic = async (req, res, next) => {
+  let url_image = "";
+  let url_pdf = "";
+
+  if (req.method == "POST") {
+    let id = req.params.id;
+    const { name, writer_name, publishing_year } = req.body;
+    console.log(name, writer_name, publishing_year);
+    console.log("aaaaaaaaaaaaa", id);
+    try {
+      let comic = await myDB.comicModel.findById(id);
+
+      if (!comic) {
+        res.status(404).json({
+          messages: "Loi roi",
+        });
+      }
+
+      if (req.files["image"]) {
+        const imageFile = req.files["image"][0];
+        fs.renameSync(
+          imageFile.path,
+          "./public/uploads/" + imageFile.originalname
+        );
+        url_image = "/uploads/" + imageFile.originalname;
+      }
+
+      if (req.files["pdf"]) {
+        const pdfFile = req.files["pdf"][0];
+        fs.renameSync(pdfFile.path, "./public/uploads/" + pdfFile.originalname);
+        url_pdf = "/uploads/" + pdfFile.originalname;
+      }
+
+      const editComic = await myDB.comicModel.findByIdAndUpdate(
+        id,
+        {
+          name: req.body.name,
+          writer_name: req.body.writer_name,
+          publishing_year: req.body.publishing_year,
+          story_desc: req.body.story_desc,
+          image: url_image,
+          pdf: url_pdf,
+        },
+        { new: true }
+      );
+      res.redirect("/comic");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 
 exports.deleteComic = async (req, res, next) => {
